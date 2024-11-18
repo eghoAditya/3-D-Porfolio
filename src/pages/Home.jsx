@@ -12,7 +12,7 @@ const Home = () => {
   // Screen Size Adjustments (already in place)
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
-    let screenPosition = [0, -18, -55];
+    let screenPosition = [0, -20, -50];
     let rotation = [0.1, 4.7, 0];
 
     if (window.innerWidth < 768) {
@@ -42,7 +42,11 @@ const Home = () => {
   const [planeScale, planePosition] = adjustPlaneForScreenSize();
 
   return (
-    <section className='w-full h-screen relative'>
+      <section className='w-full h-screen relative'>
+    
+          <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
+              POPUP
+          </div>
       <Canvas
         className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
         camera={{ position: [0, 2, 5], near: 0.1, far: 1000 }}
