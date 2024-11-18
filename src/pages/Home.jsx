@@ -3,6 +3,9 @@ import { Suspense } from 'react'; // Import Suspense
 import Loader from '../components/Loader';
 import Island from '../models/island';
 import Sky from '../models/Sky';
+import Bird from '../models/Bird';
+import Plane from '../models/Plane';
+
 
 
 const Home = () => {
@@ -38,6 +41,8 @@ const Home = () => {
                         intensity={1}
                     /> 
 
+
+                    <Bird />
                     <Sky />
                     
                     <Island
@@ -45,6 +50,7 @@ const Home = () => {
                         scale={islandScale}
                         rotation={islandRotation}
                     />
+                    <Plane />
                 </Suspense>
             </Canvas>
         </section>
