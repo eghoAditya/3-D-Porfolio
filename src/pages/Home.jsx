@@ -5,14 +5,16 @@ import Island from '../models/island';
 import Sky from '../models/Sky';
 import Bird from '../models/Bird';
 import Plane from '../models/Plane';
+import HomeInfo from '../components/HomeInfo';
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
+  const [currentStage, setCurrentStage] = useState(1);
 
   // Screen Size Adjustments (already in place)
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
-    let screenPosition = [0, -20, -50];
+    let screenPosition = [0, -25, -50];
     let rotation = [0.1, 4.7, 0];
 
     if (window.innerWidth < 768) {
@@ -42,14 +44,13 @@ const Home = () => {
   const [planeScale, planePosition] = adjustPlaneForScreenSize();
 
   return (
-      <section className='w-full h-screen relative'>
-    
-          <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
-              POPUP
-          </div>
+    <section className="w-full h-screen relative">
+      <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
+        {currentStage && <HomeInfo currentStage={currentStage} />}
+      </div>
       <Canvas
         className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
-        camera={{ position: [0, 2, 5], near: 0.1, far: 1000 }}
+        camera={{ position: [0, 2, 8], near: 0.1, far: 1000 }} // Adjusted the camera position
       >
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />
@@ -57,19 +58,21 @@ const Home = () => {
           <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" intensity={1} />
 
           <Bird />
-          <Sky isRotating={isRotating } />       
+          <Sky isRotating={isRotating} />
+          {/* Adjusted island rotation to be from the front */}
           <Island
-            position={islandPosition}
-            scale={islandScale}
-            rotation={islandRotation}
             isRotating={isRotating}
             setIsRotating={setIsRotating}
+            setCurrentStage={setCurrentStage}
+            position={islandPosition}
+            scale={islandScale}
+            rotation={[0, 4.7, 0]} // Island is initially rotated to face forward
           />
           <Plane
             isRotating={isRotating}
             planeScale={planeScale}
             planePosition={planePosition}
-            rotation={[0, 20, 0]}
+            rotation={[0, 20.1, 0]}
           />
         </Suspense>
       </Canvas>
