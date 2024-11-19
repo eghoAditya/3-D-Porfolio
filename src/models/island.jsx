@@ -5,7 +5,7 @@ import { a } from '@react-spring/three';
 
 import islandScene from '../assets/3d/island.glb';
 
-const Island = ({ isRotating, setIsRotating, ...props }) => {
+const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   const islandRef = useRef();
   const { viewport } = useThree();
   const { nodes, materials } = useGLTF(islandScene);
@@ -13,6 +13,15 @@ const Island = ({ isRotating, setIsRotating, ...props }) => {
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
   const dampingFactor = 0.95;
+
+  // Helper to determine the current stage based on rotation
+  const determineStage = (rotationY) => {
+    const normalizedRotation = (rotationY % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+    if (normalizedRotation < Math.PI / 2) return 1;
+    if (normalizedRotation < Math.PI) return 2;
+    if (normalizedRotation < (3 * Math.PI) / 2) return 3;
+    return 4;
+  };
 
   const handlePointerDown = (e) => {
     e.stopPropagation();
@@ -53,6 +62,8 @@ const Island = ({ isRotating, setIsRotating, ...props }) => {
   useFrame(() => {
     if (rotationSpeed.current !== 0 || isRotating) {
       islandRef.current.rotation.y += rotationSpeed.current;
+      const currentStage = determineStage(islandRef.current.rotation.y);
+      setCurrentStage(currentStage); // Update stage based on rotation
     }
 
     // Apply damping when rotation is not active
