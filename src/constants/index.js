@@ -57,6 +57,11 @@ export const skills = [
         type: "Design tool",
     },
     {
+        imageUrl: Canva,
+        name: "Canva",
+        type: "Design tool",
+    },
+    {
         imageUrl: Word,
         name: "MS-Word",
         type: "Frontend",
@@ -65,11 +70,6 @@ export const skills = [
         imageUrl: Excel,
         name: "MS-Excel",
         type: "Database",
-    },
-    {
-        imageUrl: Canva,
-        name: "Canva",
-        type: "Design tool",
     },
     /*{
         imageUrl: motion,
