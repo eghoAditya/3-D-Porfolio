@@ -14,7 +14,7 @@ const Bird = () => {
 
   useFrame(({ clock, camera }) => {
     // Updating the Y position to simulate the flight moving in a sine wave
-    birdRef.current.position.y = Math.sin(clock.elapsedTime) * 0.2 -4; // Set to start at y = 1
+    birdRef.current.position.y = Math.sin(clock.elapsedTime) * 0.2; // Set to start at y = 1
 
     // Checking if the bird reached a certain endpoint relative to the camera
     if (birdRef.current.position.x > camera.position.x + 5) {
