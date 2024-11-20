@@ -5,6 +5,8 @@ import Fox from "../models/Fox";
 import Loader from "../components/Loader";
 import useAlert from "../hooks/useAlert";
 import Alert from "../components/Alert";
+import linkedinIcon from '../assets/icons/linkedin.svg'; // Import LinkedIn icon
+import behanceIcon from '../assets/icons/behance.svg'; // Import Behance icon
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -47,7 +49,7 @@ const Contact = () => {
             hideAlert();
             setCurrentAnimation("idle");
             setForm({ name: "", email: "", message: "" });
-          }, 3000); // Fix timeout syntax
+          }, 3000);
         },
         (error) => {
           setIsLoading(false);
@@ -67,14 +69,14 @@ const Contact = () => {
   const handleBlur = () => setCurrentAnimation("idle");
 
   return (
-    <section className="relative flex lg:flex-row flex-col max-container">
+    <section className="relative flex lg:flex-row flex-col max-container h-[100vh]">
       {alert.show && <Alert {...alert} />}
       
       <div className="flex-1 min-w-[50] flex flex-col">
         <h1 className="head-text">Get in touch</h1>
         <form
           ref={formRef}
-          className="w-full flex flex-col gap-7 mt-14"
+          className="w-full flex flex-col gap-7 mt-7"
           onSubmit={handleSubmit}
         >
           <label className="text-black-500 font-semibold">
@@ -123,7 +125,34 @@ const Contact = () => {
             {isLoading ? "Sending..." : "Send Message"}
           </button>
         </form>
+        
+        {/* Social Links Section Below 'Get in touch' */}
+        <div className="mt-8 flex justify-center gap-8">
+          <a
+            href="https://www.linkedin.com/in/palak-dimri-b315b6211/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={linkedinIcon}
+              alt="LinkedIn"
+              className="w-8 h-8 cursor-pointer hover:opacity-1 transform hover:scale-110 transition-transform duration-300"
+            />
+          </a>
+          <a
+            href="https://www.behance.net/palakdimri7ae4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={behanceIcon}
+              alt="Behance"
+              className="w-8 h-8 cursor-pointer hover:opacity-1 transform hover:scale-110 transition-transform duration-300"
+            />
+          </a>
+        </div>
       </div>
+
       <div className="lg:w-1/2 w-full lg:h-auto md:h-[550px] h-[350px]">
         <Canvas
           camera={{
